@@ -21,11 +21,6 @@ public class ResponseDataFactory {
 
         private Object data;
 
-        public ResponseData(int code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-
         public ResponseData(int code, String message, Object data) {
             this.code = code;
             this.message = message;
@@ -35,7 +30,7 @@ public class ResponseDataFactory {
     }
 
     public static ResponseData success(String message) {
-        return new ResponseData(200, message);
+        return new ResponseData(200, message, null);
     }
 
     public static ResponseData success(String message, Object data) {
@@ -43,7 +38,7 @@ public class ResponseDataFactory {
     }
 
     public static ResponseData badRequest(String message) {
-        return new ResponseData(400, message);
+        return new ResponseData(400, message, null);
     }
 
     public static ResponseData badRequest(String message, Object data) {
@@ -51,7 +46,7 @@ public class ResponseDataFactory {
     }
 
     public static ResponseData notFound(String message) {
-        return new ResponseData(404, message);
+        return new ResponseData(404, message, null);
     }
 
     public static ResponseData notFound(String message, Object data) {
@@ -59,7 +54,7 @@ public class ResponseDataFactory {
     }
 
     public static ResponseData forbiden(String message) {
-        return new ResponseData(403, message);
+        return new ResponseData(403, message, null);
     }
 
     public static ResponseData forbiden(String message, Object data) {
@@ -67,7 +62,7 @@ public class ResponseDataFactory {
     }
 
     public static ResponseData unauthorized(String message) {
-        return new ResponseData(401, message);
+        return new ResponseData(401, message, null);
     }
 
     public static ResponseData unauthorized(String message, Object data) {
@@ -75,7 +70,7 @@ public class ResponseDataFactory {
     }
 
     public static ResponseData serverInternalError(String message) {
-        return new ResponseData(500, message);
+        return new ResponseData(500, message, null);
     }
 
     public static ResponseData serverInternalError(String message, Object data) {
@@ -83,7 +78,7 @@ public class ResponseDataFactory {
     }
 
     public static ResponseData customerError(String message) {
-        return new ResponseData(1001, message);
+        return new ResponseData(1001, message, null);
     }
 
     public static ResponseData customerError(String message, Object data) {
