@@ -4,24 +4,32 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
 public class JWTFactory {
 
     private static long ONE_WEEK = 604800000L;
-    private static String SIGN_KEY = "org.zjgsu";
+
+    private static SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+    private static byte[] SECRET_BYTES = DatatypeConverter.parseBase64Binary("org.zjgsu");
+
+    private static Key SECRET_KEY = new SecretKeySpec(SECRET_BYTES, signatureAlgorithm.getJcaName());
 
     public static String generateToken(Map<String, Object> claims) {
+
         return Jwts.builder().setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() + ONE_WEEK))
-                .signWith(SignatureAlgorithm.ES256, SIGN_KEY).compact();
+                .signWith(signatureAlgorithm, SECRET_KEY).compact();
     }
 
     public static Map parseToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(String.valueOf(SignatureAlgorithm.ES256))
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token).getBody();
-        return claims;
     }
 }
